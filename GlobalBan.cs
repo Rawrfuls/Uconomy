@@ -42,7 +42,7 @@ namespace GlobalBan
                     Steam.kick(id, banned);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Nelson has to fix that....
             }
