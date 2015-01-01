@@ -34,7 +34,7 @@ namespace GlobalBan
             SteamPlayer steamPlayer;
             if (SteamPlayerlist.tryGetSteamPlayer(commandArray[1], out steamPlayer))
             {
-                Database.BanPlayer(steamPlayer.SteamPlayerId.CSteamId.ToString(),message);
+                Database.BanPlayer(steamPlayer.SteamPlayerId.CSteamId.ToString(),caller.CSteamId.ToString(),message);
                 ChatManager.say("Banned " + steamPlayer.SteamPlayerId.IngameName + (message == ""?"":(" for \"" + message+"\"")));
                 Steam.kick(steamPlayer.SteamPlayerId.CSteamId,message);
             }
