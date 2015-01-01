@@ -38,7 +38,7 @@ namespace GlobalBan
                 string banned = Database.IsBanned(id.ToString());
                 if (banned != null)
                 {
-                    if (banned == "") banned = "You are banned, contact the staff if you feel this is a mistake.";
+                    if (banned == "") banned = "you are banned, contact the staff if you feel this is a mistake.";
                     Steam.kick(id, banned);
                 }
             }
