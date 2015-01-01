@@ -1,3 +1,0 @@
-C:\Users\fr34kyn01535\Desktop\Unturned\Unturned_Data\Managed\mods\ExamplePlugin.dll
-C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\obj\Lokal\ExamplePlugin.csprojResolveAssemblyReference.cache
-C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\obj\Lokal\ExamplePlugin.dll
