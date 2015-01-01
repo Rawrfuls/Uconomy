@@ -23,8 +23,10 @@ namespace GlobalBan
             }
 
             string message = "";
-            if (commandArray.Length <= 3) {
-                for (int i = 2; i < commandArray.Length; i++) {
+            if (commandArray.Length > 2) {
+                for (int i = 2; i < commandArray.Length; i++)
+                {
+                    if (i != 2) message += " ";
                     message+=commandArray[i];
                 }
             }
@@ -33,7 +35,7 @@ namespace GlobalBan
             if (SteamPlayerlist.tryGetSteamPlayer(commandArray[1], out steamPlayer))
             {
                 Database.BanPlayer(steamPlayer.SteamPlayerId.CSteamId.ToString(),message);
-                ChatManager.say("Banned " + steamPlayer.SteamPlayerId.IngameName + (message == ""?"":(" for " + message)));
+                ChatManager.say("Banned " + steamPlayer.SteamPlayerId.IngameName + (message == ""?"":(" for \"" + message+"\"")));
                 Steam.kick(steamPlayer.SteamPlayerId.CSteamId,message);
             }
             else
