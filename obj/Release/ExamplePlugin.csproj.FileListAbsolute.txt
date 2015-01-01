@@ -1,0 +1,8 @@
+C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\bin\Release\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\bin\Release\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\obj\Release\ExamplePlugin.csprojResolveAssemblyReference.cache
+C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\obj\Release\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Source\Repos\Unturned-3.0-Modloader\ExamplePlugin\obj\Release\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\bin\Release\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\obj\Release\ExamplePlugin.csprojResolveAssemblyReference.cache
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\obj\Release\ExamplePlugin.dll

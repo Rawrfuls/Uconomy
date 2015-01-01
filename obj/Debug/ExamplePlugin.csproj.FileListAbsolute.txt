@@ -1,0 +1,20 @@
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\obj\Debug\ExamplePlugin.csprojResolveAssemblyReference.cache
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\obj\Debug\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\bin\Debug\ExamplePlugin.dll.config
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\bin\Debug\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\bin\Debug\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\bin\Debug\RocketAPI.dll
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\bin\Debug\RocketAPI.pdb
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\RocketLoader\ExamplePlugin\obj\Debug\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.csprojResolveAssemblyReference.cache
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Unturned_Data\Managed\Plugins\ExamplePlugin.dll
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Unturned_Data\Managed\Plugins\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Documents\Visual Studio 2013\Projects\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.pdb
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.csprojResolveAssemblyReference.cache
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.dll
+C:\Users\fr34kyn01535\Documents\GitHub\Rocket\ExamplePlugin\obj\Debug\ExamplePlugin.pdb
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Servers\testx\Plugins\ExamplePlugin.dll
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Servers\testx\Plugins\ExamplePlugin.pdb
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Servers\testx\Rocket\Plugins\ExamplePlugin.dll
+C:\Program Files (x86)\Steam\SteamApps\common\Unturned Development\Servers\testx\Rocket\Plugins\ExamplePlugin.pdb
