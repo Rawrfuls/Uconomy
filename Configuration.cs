@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GlobalBan
+namespace Uconomy
 {
     public class Configuration
     {
@@ -11,6 +11,9 @@ namespace GlobalBan
         public string DatabaseUsername = "unturned";
         public string DatabasePassword = "password";
         public string DatabaseName = "unturned";
-        public string DatabaseTableName = "banlist";
+        public string DatabaseTableName = "uconomy";
+
+        public decimal InitialBalance = 30;
+        public string MoneyName = "Beer";
     }
 }

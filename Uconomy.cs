@@ -9,9 +9,9 @@ using System.Reflection;
 using Rocket.RocketAPI.Interfaces;
 using Rocket.RocketAPI.Managers;
 
-namespace GlobalBan
+namespace Uconomy
 {
-    public class GlobalBan : RocketPlugin
+    public class Uconomy : RocketPlugin
     {
         public static Configuration Configuration = ConfigurationManager.LoadConfiguration<Configuration>();
      
@@ -22,9 +22,9 @@ namespace GlobalBan
         
         void RocketPlugin.Load()
         {
-            new I18N.West.CP1250();
-            RocketAPI.Commands.RegisterCommand(new CommandBan());
-            RocketAPI.Commands.RegisterCommand(new CommandUnban());
+            new I18N.West.CP1250(); //Workaround for database encoding issues with mono
+            RocketAPI.Commands.RegisterCommand(new CommandPay());
+            RocketAPI.Commands.RegisterCommand(new CommandBalance());
 
             RocketAPI.Events.PlayerConnected += onPlayerConnected;
 
@@ -33,19 +33,8 @@ namespace GlobalBan
 
         static void onPlayerConnected(CSteamID id)
         {
-            try
-            {
-                string banned = Database.IsBanned(id.ToString());
-                if (banned != null)
-                {
-                    if (banned == "") banned = "you are banned, contact the staff if you feel this is a mistake.";
-                    Steam.kick(id, banned);
-                }
-            }
-            catch (Exception)
-            {
-                //Nelson has to fix that....
-            }
+           //setup account
+            Database.CheckSetupAccount(id);
         }
     }
 }

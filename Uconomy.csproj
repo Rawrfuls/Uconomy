@@ -7,8 +7,8 @@
     <ProjectGuid>{602882B6-F16C-4247-9F5D-21846BC4C09A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GlobalBan</RootNamespace>
-    <AssemblyName>GlobalBan</AssemblyName>
+    <RootNamespace>Uconomy</RootNamespace>
+    <AssemblyName>Uconomy</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
@@ -84,11 +84,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandBalance.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="CommandUnban.cs" />
-    <Compile Include="CommandBan.cs" />
+    <Compile Include="CommandPay.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="GlobalBan.cs" />
+    <Compile Include="Uconomy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
