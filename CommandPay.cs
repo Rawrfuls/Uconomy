@@ -11,7 +11,7 @@ namespace Uconomy
             base.commandInfo = base.commandHelp = "Pays a specific player money from your account";
         }
 
-        public override void execute(SteamPlayerID caller, string command)
+        protected override void execute(SteamPlayerID caller, string command)
         {
             string[] commandArray = command.Split('/');
 

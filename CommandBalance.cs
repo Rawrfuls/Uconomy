@@ -13,7 +13,7 @@ using UnityEngine;namespace Uconomy
             base.commandInfo = base.commandHelp = "Shows the current balance";
         }
 
-        public override void execute(SteamPlayerID caller, string command)
+        protected override void execute(SteamPlayerID caller, string command)
         {
             decimal balance = Database.GetBalance(caller.CSteamId.ToString());
             ChatManager.say(caller.CSteamId, "Your current balance is: " + balance + " " + Uconomy.configuration.MoneyName);
