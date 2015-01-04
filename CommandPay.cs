@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SDG;
-using UnityEngine;
-using Rocket.RocketAPI;
-using System.Web.Script.Serialization;
-using Rocket.RocketAPI.Interfaces;
+﻿using SDG;
+using System;
 
 namespace Uconomy
 {
-    class CommandPay : RocketCommand
+    class CommandPay : Command
     {
-        public void Execute(SteamPlayerID caller, string command)
+        public CommandPay()
+        {
+            base.commandName = "pay";
+            base.commandInfo = base.commandHelp = "Pays a specific player money from your account";
+        }
+
+        public override void execute(SteamPlayerID caller, string command)
         {
             string[] commandArray = command.Split('/');
 
@@ -52,9 +51,9 @@ namespace Uconomy
                 else
                 {
                     Database.IncreaseBalance(caller.CSteamId.ToString(), -amount);
-                    ChatManager.say(caller.CSteamId, "You paid " + otherPlayer.SteamPlayerId.IngameName + " " + amount + " " + Uconomy.Configuration.MoneyName);
+                    ChatManager.say(caller.CSteamId, "You paid " + otherPlayer.SteamPlayerId.IngameName + " " + amount + " " + Uconomy.configuration.MoneyName);
                     Database.IncreaseBalance(otherPlayer.SteamPlayerId.CSteamId.ToString(), amount);
-                    ChatManager.say(otherPlayer.SteamPlayerId.CSteamId, "You received a payment of " + amount + " " + Uconomy.Configuration.MoneyName + " from " + caller.IngameName);
+                    ChatManager.say(otherPlayer.SteamPlayerId.CSteamId, "You received a payment of " + amount + " " + Uconomy.configuration.MoneyName + " from " + caller.IngameName);
                 }
             }
             else
@@ -66,11 +65,6 @@ namespace Uconomy
         public string Name
         {
             get { return "pay"; }
-        }
-
-        public string Help
-        {
-            get { return "Pays a specific player money from your account"; }
         }
     }
 }

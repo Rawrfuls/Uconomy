@@ -87,7 +87,7 @@
     <Compile Include="CommandBalance.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="CommandPay.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="UconomyConfiguration.cs" />
     <Compile Include="Uconomy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

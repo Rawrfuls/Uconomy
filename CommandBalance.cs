@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SDG;
-using UnityEngine;
-using Rocket.RocketAPI;
-using System.Web.Script.Serialization;
-using Rocket.RocketAPI.Interfaces;
-
-namespace Uconomy
+using UnityEngine;namespace Uconomy
 {
-    class CommandBalance : RocketCommand
+    class CommandBalance : Command
     {
-        public void Execute(SteamPlayerID caller, string command)
+        public CommandBalance()
+        {
+            base.commandName = "balance";
+            base.commandInfo = base.commandHelp = "Shows the current balance";
+        }
+
+        public override void execute(SteamPlayerID caller, string command)
         {
             decimal balance = Database.GetBalance(caller.CSteamId.ToString());
-            ChatManager.say(caller.CSteamId, "Your current balance is: " + balance + " " + Uconomy.Configuration.MoneyName);
+            ChatManager.say(caller.CSteamId, "Your current balance is: " + balance + " " + Uconomy.configuration.MoneyName);
         }
 
         public string Name
         {
             get { return "balance"; }
-        }
-
-        public string Help
-        {
-            get { return "Shows the current balance"; }
         }
     }
 }

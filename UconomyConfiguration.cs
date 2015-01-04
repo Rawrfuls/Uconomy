@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Uconomy
 {
-    public class Configuration
+    public class UconomyConfiguration
     {
         public string DatabaseAddress = "localhost";
         public string DatabaseUsername = "unturned";
