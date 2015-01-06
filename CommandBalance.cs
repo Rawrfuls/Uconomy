@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SDG;
-using UnityEngine;namespace Uconomy
+using UnityEngine;
+namespace unturned.ROCKS.GlobalBan
 {
     class CommandBalance : Command
     {
@@ -15,8 +16,8 @@ using UnityEngine;namespace Uconomy
 
         protected override void execute(SteamPlayerID caller, string command)
         {
-            decimal balance = Database.GetBalance(caller.CSteamId.ToString());
-            ChatManager.say(caller.CSteamId, "Your current balance is: " + balance + " " + Uconomy.configuration.MoneyName);
+            decimal balance = Database.GetBalance(caller.CSteamID.ToString());
+            ChatManager.say(caller.CSteamID, "Your current balance is: " + balance + " " + Uconomy.Configuration.MoneyName);
         }
 
         public string Name

@@ -1,7 +1,7 @@
 ﻿using SDG;
 using System;
 
-namespace Uconomy
+namespace unturned.ROCKS.GlobalBan
 {
     class CommandPay : Command
     {
@@ -20,7 +20,7 @@ namespace Uconomy
             
             if (commandArray.Length != 3)
             {
-                ChatManager.say(caller.CSteamId, "Invalid arguments");
+                ChatManager.say(caller.CSteamID, "Invalid arguments");
                 return;
             }
 
@@ -28,7 +28,7 @@ namespace Uconomy
 
             if (commandAndName.Length != 2)
             {
-                ChatManager.say(caller.CSteamId, "Invalid name");
+                ChatManager.say(caller.CSteamID, "Invalid name");
                 return;
             }
 
@@ -36,29 +36,29 @@ namespace Uconomy
 
             decimal amount = 0;
             if (!Decimal.TryParse(commandArray[2], out amount) || amount <= 0) {
-                ChatManager.say(caller.CSteamId, "Invalid amount");
+                ChatManager.say(caller.CSteamID, "Invalid amount");
                 return;
             }
 
             SteamPlayer otherPlayer;
             if (SteamPlayerlist.tryGetSteamPlayer(username, out otherPlayer))
             {
-                decimal myBalance = Database.GetBalance(caller.CSteamId.ToString());
+                decimal myBalance = Database.GetBalance(caller.CSteamID.ToString());
                 if ((myBalance - amount) <= 0) {
-                    ChatManager.say(caller.CSteamId, "Your balance does not allow this payment");
+                    ChatManager.say(caller.CSteamID, "Your balance does not allow this payment");
                     return;
                 }
                 else
                 {
-                    Database.IncreaseBalance(caller.CSteamId.ToString(), -amount);
-                    ChatManager.say(caller.CSteamId, "You paid " + otherPlayer.SteamPlayerId.IngameName + " " + amount + " " + Uconomy.configuration.MoneyName);
-                    Database.IncreaseBalance(otherPlayer.SteamPlayerId.CSteamId.ToString(), amount);
-                    ChatManager.say(otherPlayer.SteamPlayerId.CSteamId, "You received a payment of " + amount + " " + Uconomy.configuration.MoneyName + " from " + caller.IngameName);
+                    Database.IncreaseBalance(caller.CSteamID.ToString(), -amount);
+                    ChatManager.say(caller.CSteamID, "You paid " + otherPlayer.SteamPlayerID.CharacterName + " " + amount + " " + Uconomy.Configuration.MoneyName);
+                    Database.IncreaseBalance(otherPlayer.SteamPlayerID.CSteamID.ToString(), amount);
+                    ChatManager.say(otherPlayer.SteamPlayerID.CSteamID, "You received a payment of " + amount + " " + Uconomy.Configuration.MoneyName + " from " + caller.CharacterName);
                 }
             }
             else
             {
-                ChatManager.say(caller.CSteamId, "Failed to find player");
+                ChatManager.say(caller.CSteamID, "Failed to find player");
             }
         }
 

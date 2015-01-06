@@ -1,23 +1,23 @@
 ﻿using Rocket;
+using Rocket.RocketAPI;
+using SDG;
 using Steamworks;
 
-namespace Uconomy
+namespace unturned.ROCKS.GlobalBan
 {
-    public class Uconomy : RocketComponent
+    public class Uconomy : RocketPlugin<UconomyConfiguration>
     {
-        public static UconomyConfiguration configuration;
-     
         protected override void Load()
         {
             new I18N.West.CP1250(); //Workaround for database encoding issues with mono
-            configuration = Configuration.LoadConfiguration<UconomyConfiguration>();
             Database.CheckSchema();
+            Events.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
-        protected override void onPlayerConnected(CSteamID id)
+        private void Events_OnPlayerConnected(Player player)
         {
            //setup account
-            Database.CheckSetupAccount(id);
+            Database.CheckSetupAccount(player.SteamChannel.SteamPlayer.SteamPlayerID.CSteamID);
         }
     }
 }

@@ -7,7 +7,7 @@
     <ProjectGuid>{602882B6-F16C-4247-9F5D-21846BC4C09A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uconomy</RootNamespace>
+    <RootNamespace>unturned.ROCKS.GlobalBan</RootNamespace>
     <AssemblyName>Uconomy</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -92,8 +92,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libraries\Assembly-CSharp-firstpass.dll" />
-    <Content Include="Libraries\Assembly-CSharp.dll" />
+    <Content Include="lib\Assembly-CSharp-firstpass.dll" />
+    <Content Include="lib\Assembly-CSharp.dll" />
     <Content Include="Libraries\I18N.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -103,14 +103,14 @@
     <Content Include="Libraries\MySql.Data.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\RocketAPI.dll" />
+    <Content Include="lib\RocketAPI.dll" />
     <Content Include="Libraries\System.Data.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\System.Transactions.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\UnityEngine.dll" />
+    <Content Include="lib\UnityEngine.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
