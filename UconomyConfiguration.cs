@@ -1,19 +1,37 @@
-﻿using System;
+﻿using Rocket.RocketAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace unturned.ROCKS.GlobalBan
 {
-    public class UconomyConfiguration
+    public class UconomyConfiguration : RocketConfiguration
     {
-        public string DatabaseAddress = "localhost";
-        public string DatabaseUsername = "unturned";
-        public string DatabasePassword = "password";
-        public string DatabaseName = "unturned";
-        public string DatabaseTableName = "uconomy";
+        public string DatabaseAddress;
+        public string DatabaseUsername;
+        public string DatabasePassword;
+        public string DatabaseName;
+        public string DatabaseTableName;
 
-        public decimal InitialBalance = 30;
-        public string MoneyName = "Beer";
+        public decimal InitialBalance;
+        public string MoneyName;
+
+        public RocketConfiguration DefaultConfiguration
+        {
+            get
+            {
+                UconomyConfiguration config = new UconomyConfiguration();
+                config.DatabaseAddress = "localhost";
+                config.DatabaseUsername = "unturned";
+                config.DatabasePassword = "password";
+                config.DatabaseName = "unturned";
+                config.DatabaseTableName = "uconomy";
+
+                config.InitialBalance = 30;
+                config.MoneyName = "Beer";
+                return config;
+            }
+        }
     }
 }
