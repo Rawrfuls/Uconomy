@@ -16,7 +16,7 @@ namespace unturned.ROCKS.Uconomy
 
         protected override void execute(SteamPlayerID caller, string command)
         {
-            decimal balance = Database.GetBalance(caller.CSteamID.ToString());
+            decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
             ChatManager.say(caller.CSteamID, "Your current balance is: " + balance + " " + Uconomy.Configuration.MoneyName);
         }
 

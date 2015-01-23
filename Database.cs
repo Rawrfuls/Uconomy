@@ -5,9 +5,15 @@ using System;
 
 namespace unturned.ROCKS.Uconomy
 {
-    class Database
+    public class DatabaseManager
     {
-        private static MySqlConnection createConnection()
+        internal DatabaseManager()
+        {
+            new I18N.West.CP1250(); //Workaround for database encoding issues with mono
+            CheckSchema();
+        }
+
+        private MySqlConnection createConnection()
         {
             MySqlConnection connection = null;
             try
@@ -26,14 +32,14 @@ namespace unturned.ROCKS.Uconomy
         /// </summary>
         /// <param name="steamId"></param>
         /// <returns></returns>
-        public static decimal GetBalance(string steamId)
+        public decimal GetBalance(Steamworks.CSteamID id)
         {
             decimal output = 0;
             try
             {
                 MySqlConnection connection = createConnection();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "select `balance` from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + steamId + "';";
+                command.CommandText = "select `balance` from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + id.ToString() + "';";
                 connection.Open();
                 object result = command.ExecuteScalar();
                 if (result != null) Decimal.TryParse(result.ToString(), out output);
@@ -52,14 +58,14 @@ namespace unturned.ROCKS.Uconomy
         /// <param name="steamId">steamid of the accountowner</param>
         /// <param name="increaseBy">amount to change</param>
         /// <returns>the new balance</returns>
-        public static decimal IncreaseBalance(string steamId, decimal increaseBy)
+        public decimal IncreaseBalance(Steamworks.CSteamID id, decimal increaseBy)
         {
             decimal output = 0;
             try
             {
                 MySqlConnection connection = createConnection();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "update `" + Uconomy.Configuration.DatabaseTableName + "` set `balance` = balance + (" + increaseBy + ") where `steamId` = '" + steamId + "'; select `balance` from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + steamId + "'";
+                command.CommandText = "update `" + Uconomy.Configuration.DatabaseTableName + "` set `balance` = balance + (" + increaseBy + ") where `steamId` = '" + id.ToString() + "'; select `balance` from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + id.ToString() + "'";
                 connection.Open();
                 object result = command.ExecuteScalar();
                 if (result != null) Decimal.TryParse(result.ToString(), out output);
@@ -73,7 +79,7 @@ namespace unturned.ROCKS.Uconomy
         }
 
         
-        public static void CheckSetupAccount(Steamworks.CSteamID id)
+        public void CheckSetupAccount(Steamworks.CSteamID id)
         {
             try
             {
@@ -101,7 +107,7 @@ namespace unturned.ROCKS.Uconomy
 
         }
 
-        public static void CheckSchema()
+        internal void CheckSchema()
         {
             try
             {
@@ -123,7 +129,5 @@ namespace unturned.ROCKS.Uconomy
                 Logger.LogException(ex);
             }
         }
-
-
     }
 }

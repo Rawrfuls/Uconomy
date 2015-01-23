@@ -43,16 +43,16 @@ namespace unturned.ROCKS.Uconomy
             SteamPlayer otherPlayer;
             if (SteamPlayerlist.tryGetSteamPlayer(username, out otherPlayer))
             {
-                decimal myBalance = Database.GetBalance(caller.CSteamID.ToString());
+                decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
                 if ((myBalance - amount) <= 0) {
                     ChatManager.say(caller.CSteamID, "Your balance does not allow this payment");
                     return;
                 }
                 else
                 {
-                    Database.IncreaseBalance(caller.CSteamID.ToString(), -amount);
+                    Uconomy.Instance.Database.IncreaseBalance(caller.CSteamID, -amount);
                     ChatManager.say(caller.CSteamID, "You paid " + otherPlayer.SteamPlayerID.CharacterName + " " + amount + " " + Uconomy.Configuration.MoneyName);
-                    Database.IncreaseBalance(otherPlayer.SteamPlayerID.CSteamID.ToString(), amount);
+                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.SteamPlayerID.CSteamID, amount);
                     ChatManager.say(otherPlayer.SteamPlayerID.CSteamID, "You received a payment of " + amount + " " + Uconomy.Configuration.MoneyName + " from " + caller.CharacterName);
                 }
             }

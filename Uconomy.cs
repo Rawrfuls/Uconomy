@@ -7,10 +7,13 @@ namespace unturned.ROCKS.Uconomy
 {
     public class Uconomy : RocketPlugin<UconomyConfiguration>
     {
+        public DatabaseManager Database;
+        public static Uconomy Instance;
+
         protected override void Load()
         {
-            new I18N.West.CP1250(); //Workaround for database encoding issues with mono
-            Database.CheckSchema();
+            Instance = this;
+            Database = new DatabaseManager();
             Events.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
