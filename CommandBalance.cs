@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SDG;
 using UnityEngine;
-namespace unturned.ROCKS.GlobalBan
+namespace unturned.ROCKS.Uconomy
 {
     class CommandBalance : Command
     {

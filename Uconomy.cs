@@ -3,7 +3,7 @@ using Rocket.RocketAPI;
 using SDG;
 using Steamworks;
 
-namespace unturned.ROCKS.GlobalBan
+namespace unturned.ROCKS.Uconomy
 {
     public class Uconomy : RocketPlugin<UconomyConfiguration>
     {

@@ -1,7 +1,7 @@
 ﻿using SDG;
 using System;
 
-namespace unturned.ROCKS.GlobalBan
+namespace unturned.ROCKS.Uconomy
 {
     class CommandPay : Command
     {

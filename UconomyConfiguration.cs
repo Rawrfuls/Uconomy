@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace unturned.ROCKS.GlobalBan
+namespace unturned.ROCKS.Uconomy
 {
     public class UconomyConfiguration : RocketConfiguration
     {

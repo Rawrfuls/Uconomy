@@ -3,7 +3,7 @@ using Rocket;
 using Rocket.RocketAPI;
 using System;
 
-namespace unturned.ROCKS.GlobalBan
+namespace unturned.ROCKS.Uconomy
 {
     class Database
     {
