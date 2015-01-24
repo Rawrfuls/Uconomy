@@ -14,7 +14,7 @@ namespace unturned.ROCKS.Uconomy
         {
             Instance = this;
             Database = new DatabaseManager();
-            Events.OnPlayerConnected+=Events_OnPlayerConnected;
+            RocketServer.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
         private void Events_OnPlayerConnected(Player player)
