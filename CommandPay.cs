@@ -8,7 +8,8 @@ namespace unturned.ROCKS.Uconomy
         public CommandPay()
         {
             base.commandName = "pay";
-            base.commandInfo = base.commandHelp = "Pays a specific player money from your account";
+            base.commandHelp = "Pays a specific player money from your account";
+            base.commandInfo = base.commandName + " - " + base.commandHelp;
         }
 
         protected override void execute(SteamPlayerID caller, string command)
