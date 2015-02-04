@@ -1,5 +1,6 @@
 ﻿using Rocket;
 using Rocket.RocketAPI;
+using Rocket.RocketAPI.Events;
 using SDG;
 using Steamworks;
 
@@ -14,7 +15,7 @@ namespace unturned.ROCKS.Uconomy
         {
             Instance = this;
             Database = new DatabaseManager();
-            RocketEvents.OnPlayerConnected+=Events_OnPlayerConnected;
+            RocketServerEvents.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
         private void Events_OnPlayerConnected(Player player)

@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Rocket;
+using Rocket.Logging;
 using Rocket.RocketAPI;
 using System;
 
