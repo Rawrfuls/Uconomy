@@ -18,32 +18,28 @@ namespace unturned.ROCKS.Uconomy
 
             // 1 = COMMAND username, 2 = amount
 
-            
-            if (commandArray.Length != 3)
+            if (commandArray.Length != 2)
             {
                 ChatManager.say(caller.CSteamID, "Invalid arguments");
                 return;
             }
 
-            string[] commandAndName = commandArray[1].Split(' ');
-
-            if (commandAndName.Length != 2)
-            {
-                ChatManager.say(caller.CSteamID, "Invalid name");
-                return;
-            }
-
-            string username = commandAndName[1];
-
-            decimal amount = 0;
-            if (!Decimal.TryParse(commandArray[2], out amount) || amount <= 0) {
-                ChatManager.say(caller.CSteamID, "Invalid amount");
-                return;
-            }
-
             SteamPlayer otherPlayer;
-            if (SteamPlayerlist.tryGetSteamPlayer(username, out otherPlayer))
+            if (SteamPlayerlist.tryGetSteamPlayer(commandArray[0], out otherPlayer))
             {
+                if (caller.CSteamID.ToString() == otherPlayer.SteamPlayerID.CSteamID.ToString())
+                {
+                    ChatManager.say(caller.CSteamID, "You cant pay yourself");
+                    return;
+                }
+
+                decimal amount = 0;
+                if (!Decimal.TryParse(commandArray[1], out amount) || amount <= 0)
+                {
+                    ChatManager.say(caller.CSteamID, "Invalid amount");
+                    return;
+                }
+
                 decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
                 if ((myBalance - amount) <= 0) {
                     ChatManager.say(caller.CSteamID, "Your balance does not allow this payment");
