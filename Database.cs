@@ -87,7 +87,7 @@ namespace unturned.ROCKS.Uconomy
                 MySqlConnection connection = createConnection();
                 MySqlCommand command = connection.CreateCommand();
                 int exists = 0;
-                command.CommandText = "select count(id) from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + id + "';";
+                command.CommandText = "select count(1) from `" + Uconomy.Configuration.DatabaseTableName + "` where `steamId` = '" + id + "';";
                 connection.Open();
                 object result = command.ExecuteScalar();
                 if (result != null) Int32.TryParse(result.ToString(), out exists);
@@ -120,7 +120,7 @@ namespace unturned.ROCKS.Uconomy
 
                 if (test == null)
                 {
-                    command.CommandText = "CREATE TABLE `" + Uconomy.Configuration.DatabaseTableName + "` (`id` int(11) NOT NULL AUTO_INCREMENT,`steamId` varchar(32) NOT NULL,`balance` decimal(15,2) NOT NULL DEFAULT '25.00',`lastUpdated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,PRIMARY KEY (`id`,`steamId`)) ";
+                    command.CommandText = "CREATE TABLE `" + Uconomy.Configuration.DatabaseTableName + "` (`steamId` varchar(32) NOT NULL,`balance` decimal(15,2) NOT NULL DEFAULT '25.00',`lastUpdated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,PRIMARY KEY (`steamId`)) ";
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
