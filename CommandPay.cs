@@ -1,4 +1,5 @@
-﻿using SDG;
+﻿using Rocket.RocketAPI;
+using SDG;
 using System;
 
 namespace unturned.ROCKS.Uconomy
@@ -14,6 +15,7 @@ namespace unturned.ROCKS.Uconomy
 
         protected override void execute(SteamPlayerID caller, string command)
         {
+            if (!RocketCommand.IsPlayer(caller)) return;
             string[] commandArray = command.Split('/');
 
             // 1 = COMMAND username, 2 = amount

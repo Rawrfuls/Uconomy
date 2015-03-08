@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SDG;
 using UnityEngine;
+using Rocket.RocketAPI;
 namespace unturned.ROCKS.Uconomy
 {
     class CommandBalance : Command
@@ -16,6 +17,7 @@ namespace unturned.ROCKS.Uconomy
 
         protected override void execute(SteamPlayerID caller, string command)
         {
+            if (!RocketCommand.IsPlayer(caller)) return;
             decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
             ChatManager.say(caller.CSteamID, "Your current balance is: " + balance + " " + Uconomy.Configuration.MoneyName);
         }
