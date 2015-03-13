@@ -19,7 +19,7 @@ namespace unturned.ROCKS.Uconomy
         {
             if (!RocketCommand.IsPlayer(caller)) return;
             decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
-            ChatManager.say(caller.CSteamID, "Your current balance is: " + balance + " " + Uconomy.Configuration.MoneyName);
+            ChatManager.say(caller.CSteamID, Uconomy.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.MoneyName));
         }
 
         public string Name

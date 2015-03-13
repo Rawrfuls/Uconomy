@@ -29,7 +29,7 @@ namespace unturned.ROCKS.Uconomy
                 config.DatabaseTableName = "uconomy";
 
                 config.InitialBalance = 30;
-                config.MoneyName = "Beer";
+                config.MoneyName = "Credits";
                 return config;
             }
         }
