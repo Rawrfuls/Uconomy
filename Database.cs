@@ -19,7 +19,8 @@ namespace unturned.ROCKS.Uconomy
             MySqlConnection connection = null;
             try
             {
-                connection = new MySqlConnection(String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3};", Uconomy.Instance.Configuration.DatabaseAddress, Uconomy.Instance.Configuration.DatabaseName, Uconomy.Instance.Configuration.DatabaseUsername, Uconomy.Instance.Configuration.DatabasePassword));
+                if (Uconomy.Instance.Configuration.DatabasePort == 0) Uconomy.Instance.Configuration.DatabasePort = 3306;
+                connection = new MySqlConnection(String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3};PORT={4};", Uconomy.Instance.Configuration.DatabaseAddress, Uconomy.Instance.Configuration.DatabaseName, Uconomy.Instance.Configuration.DatabaseUsername, Uconomy.Instance.Configuration.DatabasePassword, Uconomy.Instance.Configuration.DatabasePort));
             }
             catch (Exception ex)
             {

@@ -13,6 +13,7 @@ namespace unturned.ROCKS.Uconomy
         public string DatabasePassword;
         public string DatabaseName;
         public string DatabaseTableName;
+        public int DatabasePort;
 
         public decimal InitialBalance;
         public string MoneyName;
@@ -27,6 +28,7 @@ namespace unturned.ROCKS.Uconomy
                 config.DatabasePassword = "password";
                 config.DatabaseName = "unturned";
                 config.DatabaseTableName = "uconomy";
+                config.DatabasePort = 3306;
 
                 config.InitialBalance = 30;
                 config.MoneyName = "Credits";
