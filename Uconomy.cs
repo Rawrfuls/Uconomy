@@ -35,10 +35,10 @@ namespace unturned.ROCKS.Uconomy
             }
         }
 
-        private void Events_OnPlayerConnected(Player player)
+        private void Events_OnPlayerConnected(RocketPlayer player)
         {
            //setup account
-            Database.CheckSetupAccount(player.SteamChannel.SteamPlayer.SteamPlayerID.CSteamID);
+            Database.CheckSetupAccount(player.CSteamID);
         }
     }
 }

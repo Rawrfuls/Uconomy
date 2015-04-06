@@ -23,10 +23,10 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
-        public void Execute(Steamworks.CSteamID caller, string command)
+        public void Execute(RocketPlayer caller, string command)
         {
-            decimal balance = Uconomy.Instance.Database.GetBalance(caller);
-            ChatManager.say(caller, Uconomy.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.MoneyName));
+            decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
+            RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.MoneyName));
         }
     }
 }

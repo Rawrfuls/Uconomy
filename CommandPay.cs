@@ -21,7 +21,7 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
-        public void Execute(Steamworks.CSteamID caller, string command)
+        public void Execute(RocketPlayer caller, string command)
         {
             string[] commandArray = command.Split('/');
 
@@ -29,44 +29,43 @@ namespace unturned.ROCKS.Uconomy
 
             if (commandArray.Length != 2)
             {
-                ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_invalid"));
+                RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_invalid"));
                 return;
             }
 
-            SteamPlayer callingPlayer = PlayerTool.getSteamPlayer(caller);
-            SteamPlayer otherPlayer;
-            if (PlayerTool.tryGetSteamPlayer(commandArray[0], out otherPlayer))
+            RocketPlayer otherPlayer = RocketPlayer.FromName(commandArray[0]);
+            if (otherPlayer !=null)
             {
-                if (caller.ToString() == otherPlayer.SteamPlayerID.CSteamID.ToString())
+                if (caller == otherPlayer)
                 {
-                    ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_error_pay_self"));
+                    RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_error_pay_self"));
                     return;
                 }
 
                 decimal amount = 0;
                 if (!Decimal.TryParse(commandArray[1], out amount) || amount <= 0)
                 {
-                    ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_error_invalid_amount"));
+                    RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_error_invalid_amount"));
                     return;
                 }
 
-                decimal myBalance = Uconomy.Instance.Database.GetBalance(caller);
+                decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
                 if ((myBalance - amount) <= 0)
                 {
-                    ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_error_cant_afford"));
+                    RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_error_cant_afford"));
                     return;
                 }
                 else
                 {
-                    Uconomy.Instance.Database.IncreaseBalance(caller, -amount);
-                    ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_private", otherPlayer.SteamPlayerID.CharacterName, amount, Uconomy.Instance.Configuration.MoneyName));
-                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.SteamPlayerID.CSteamID, amount);
-                    ChatManager.say(otherPlayer.SteamPlayerID.CSteamID, Uconomy.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.MoneyName, callingPlayer.SteamPlayerID.CharacterName));
+                    Uconomy.Instance.Database.IncreaseBalance(caller.CSteamID, -amount);
+                    RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_private", otherPlayer.CharacterName, amount, Uconomy.Instance.Configuration.MoneyName));
+                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.CSteamID, amount);
+                    RocketChatManager.Say(otherPlayer.CSteamID, Uconomy.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.MoneyName, caller.CharacterName));
                 }
             }
             else
             {
-                ChatManager.say(caller, Uconomy.Instance.Translate("command_pay_error_player_not_found"));
+                RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_error_player_not_found"));
             }
         }
     }
