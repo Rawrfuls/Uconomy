@@ -6,7 +6,7 @@ using System.Text;
 
 namespace unturned.ROCKS.Uconomy
 {
-    public class UconomyConfiguration : RocketConfiguration
+    public class UconomyConfiguration : IRocketConfiguration
     {
         public string DatabaseAddress;
         public string DatabaseUsername;
@@ -18,7 +18,7 @@ namespace unturned.ROCKS.Uconomy
         public decimal InitialBalance;
         public string MoneyName;
 
-        public RocketConfiguration DefaultConfiguration
+        public IRocketConfiguration DefaultConfiguration
         {
             get
             {
