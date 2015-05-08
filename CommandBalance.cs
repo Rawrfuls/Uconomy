@@ -23,7 +23,7 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
-        public void Execute(RocketPlayer caller, string command)
+        public void Execute(RocketPlayer caller,params string[] command)
         {
             decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
             RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.MoneyName));

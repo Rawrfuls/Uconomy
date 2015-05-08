@@ -21,19 +21,15 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
-        public void Execute(RocketPlayer caller, string command)
+        public void Execute(RocketPlayer caller, params string[] command)
         {
-            string[] commandArray = command.Split('/');
-
-            // 1 = COMMAND username, 2 = amount
-
-            if (commandArray.Length != 2)
+            if (command.Length != 2)
             {
                 RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_invalid"));
                 return;
             }
 
-            RocketPlayer otherPlayer = RocketPlayer.FromName(commandArray[0]);
+            RocketPlayer otherPlayer = RocketPlayer.FromName(command[0]);
             if (otherPlayer !=null)
             {
                 if (caller == otherPlayer)
@@ -43,7 +39,7 @@ namespace unturned.ROCKS.Uconomy
                 }
 
                 decimal amount = 0;
-                if (!Decimal.TryParse(commandArray[1], out amount) || amount <= 0)
+                if (!Decimal.TryParse(command[1], out amount) || amount <= 0)
                 {
                     RocketChatManager.Say(caller, Uconomy.Instance.Translate("command_pay_error_invalid_amount"));
                     return;
