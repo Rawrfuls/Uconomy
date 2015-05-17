@@ -1,6 +1,7 @@
 ﻿using Rocket;
-using Rocket.RocketAPI;
-using Rocket.RocketAPI.Events;
+using Rocket.Unturned.Events;
+using Rocket.Unturned.Player;
+using Rocket.Unturned.Plugins;
 using SDG;
 using Steamworks;
 

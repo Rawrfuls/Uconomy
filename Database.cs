@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Rocket;
-using Rocket.Logging;
-using Rocket.RocketAPI;
+using Rocket.Unturned.Logging;
 using System;
 
 namespace unturned.ROCKS.Uconomy

@@ -1,4 +1,4 @@
-﻿using Rocket.RocketAPI;
+﻿using Rocket.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace unturned.ROCKS.Uconomy
 {
-    public class UconomyConfiguration : IRocketConfiguration
+    public class UconomyConfiguration : IRocketPluginConfiguration
     {
         public string DatabaseAddress;
         public string DatabaseUsername;
@@ -18,7 +18,7 @@ namespace unturned.ROCKS.Uconomy
         public decimal InitialBalance;
         public string MoneyName;
 
-        public IRocketConfiguration DefaultConfiguration
+        public IRocketPluginConfiguration DefaultConfiguration
         {
             get
             {
