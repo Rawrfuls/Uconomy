@@ -23,6 +23,11 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
+        public string Syntax
+        {
+            get { return "<player> <amount>"; }
+        }
+
         public void Execute(RocketPlayer caller, params string[] command)
         {
             if (command.Length != 2)

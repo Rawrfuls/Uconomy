@@ -26,6 +26,11 @@ namespace unturned.ROCKS.Uconomy
             get { return false; }
         }
 
+        public string Syntax
+        {
+            get { return ""; }
+        }
+
         public void Execute(RocketPlayer caller,params string[] command)
         {
             decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
