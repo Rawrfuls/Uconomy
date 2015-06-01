@@ -3,6 +3,7 @@ using Rocket.Unturned.Commands;
 using Rocket.Unturned.Player;
 using SDG;
 using System;
+using System.Collections.Generic;
 
 namespace unturned.ROCKS.Uconomy
 {
@@ -26,6 +27,11 @@ namespace unturned.ROCKS.Uconomy
         public string Syntax
         {
             get { return "<player> <amount>"; }
+        }
+
+        public List<string> Aliases
+        {
+            get { return new List<string>(); }
         }
 
         public void Execute(RocketPlayer caller, params string[] command)
