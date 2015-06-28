@@ -2,6 +2,7 @@
 using Rocket.Unturned.Commands;
 using Rocket.Unturned.Player;
 using SDG;
+using SDG.Unturned;
 using System;
 using System.Collections.Generic;
 
