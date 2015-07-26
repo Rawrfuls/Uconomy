@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SDG;
-using SDG.Unturned;
-using UnityEngine;
-using Rocket.Unturned.Commands;
-using Rocket.Unturned.Player;
-using Rocket.Unturned;
+using Rocket.API;
+using Rocket.Unturned.Chat;
 
 namespace unturned.ROCKS.Uconomy
 {
@@ -22,7 +16,7 @@ namespace unturned.ROCKS.Uconomy
             get { return "Shows the current balance"; }
         }
 
-        public bool RunFromConsole
+        public bool AllowFromConsole
         {
             get { return false; }
         }
@@ -36,10 +30,19 @@ namespace unturned.ROCKS.Uconomy
         {
             get { return new List<string>(); }
         }
-        public void Execute(RocketPlayer caller,params string[] command)
+
+        public List<string> Permissions
         {
-            decimal balance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
-            RocketChat.Say(caller, Uconomy.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.MoneyName));
+            get
+            {
+                return new List<string>() { "uconomy.balance" };
+            }
+        }
+
+        public void Execute(IRocketPlayer caller,params string[] command)
+        {
+            decimal balance = Uconomy.Instance.Database.GetBalance(caller.Id);
+            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.Instance.MoneyName));
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using Rocket.Unturned;
-using Rocket.Unturned.Commands;
+﻿using Rocket.API;
+using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
-using SDG;
-using SDG.Unturned;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +18,7 @@ namespace unturned.ROCKS.Uconomy
             get { return "pay"; }
         }
 
-        public bool RunFromConsole
+        public bool AllowFromConsole
         {
             get { return false; }
         }
@@ -35,47 +33,55 @@ namespace unturned.ROCKS.Uconomy
             get { return new List<string>(); }
         }
 
-        public void Execute(RocketPlayer caller, params string[] command)
+        public List<string> Permissions
+        {
+            get
+            {
+                return new List<string>() { "uconomy.pay" };
+            }
+        }
+
+        public void Execute(IRocketPlayer caller, params string[] command)
         {
             if (command.Length != 2)
             {
-                RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_invalid"));
+                UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_invalid"));
                 return;
             }
 
-            RocketPlayer otherPlayer = RocketPlayer.FromName(command[0]);
+            UnturnedPlayer otherPlayer = UnturnedPlayer.FromName(command[0]);
             if (otherPlayer !=null)
             {
                 if (caller == otherPlayer)
                 {
-                    RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_error_pay_self"));
+                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_pay_self"));
                     return;
                 }
 
                 decimal amount = 0;
                 if (!Decimal.TryParse(command[1], out amount) || amount <= 0)
                 {
-                    RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_error_invalid_amount"));
+                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_invalid_amount"));
                     return;
                 }
 
-                decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.CSteamID);
+                decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.Id);
                 if ((myBalance - amount) <= 0)
                 {
-                    RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_error_cant_afford"));
+                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_cant_afford"));
                     return;
                 }
                 else
                 {
-                    Uconomy.Instance.Database.IncreaseBalance(caller.CSteamID, -amount);
-                    RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_private", otherPlayer.CharacterName, amount, Uconomy.Instance.Configuration.MoneyName));
-                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.CSteamID, amount);
-                    RocketChat.Say(otherPlayer.CSteamID, Uconomy.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.MoneyName, caller.CharacterName));
+                    Uconomy.Instance.Database.IncreaseBalance(caller.Id, -amount);
+                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayer.CharacterName, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
+                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.Id, amount);
+                    UnturnedChat.Say(otherPlayer.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.Instance.MoneyName, caller.DisplayName));
                 }
             }
             else
             {
-                RocketChat.Say(caller, Uconomy.Instance.Translate("command_pay_error_player_not_found"));
+                UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_player_not_found"));
             }
         }
     }

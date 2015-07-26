@@ -1,4 +1,7 @@
 ﻿using Rocket;
+using Rocket.API.Collections;
+using Rocket.Core.Plugins;
+using Rocket.Unturned;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using Rocket.Unturned.Plugins;
@@ -16,14 +19,15 @@ namespace unturned.ROCKS.Uconomy
         {
             Instance = this;
             Database = new DatabaseManager();
-            RocketServerEvents.OnPlayerConnected+=Events_OnPlayerConnected;
+            U.Events.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
-        public override System.Collections.Generic.Dictionary<string, string> DefaultTranslations
+
+        public override TranslationList DefaultTranslations
         {
             get
             {
-                return new System.Collections.Generic.Dictionary<string, string>(){
+                return new TranslationList(){
                 {"command_balance_show","Your current balance is: {0} {1}"},
                 {"command_pay_invalid","Invalid arguments"},
                 {"command_pay_error_pay_self","You cant pay yourself"},
@@ -36,7 +40,7 @@ namespace unturned.ROCKS.Uconomy
             }
         }
 
-        private void Events_OnPlayerConnected(RocketPlayer player)
+        private void Events_OnPlayerConnected(UnturnedPlayer player)
         {
            //setup account
             Database.CheckSetupAccount(player.CSteamID);
