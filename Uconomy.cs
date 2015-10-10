@@ -8,7 +8,7 @@ using Rocket.Unturned.Plugins;
 using SDG;
 using Steamworks;
 
-namespace unturned.ROCKS.Uconomy
+namespace fr34kyn01535.Uconomy
 {
     public class Uconomy : RocketPlugin<UconomyConfiguration>
     {

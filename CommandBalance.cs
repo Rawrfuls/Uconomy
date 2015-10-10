@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Rocket.API;
 using Rocket.Unturned.Chat;
 
-namespace unturned.ROCKS.Uconomy
+namespace fr34kyn01535.Uconomy
 {
     public class CommandBalance : IRocketCommand
     {

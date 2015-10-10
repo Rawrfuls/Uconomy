@@ -2,7 +2,7 @@
 using Rocket.Core.Logging;
 using System;
 
-namespace unturned.ROCKS.Uconomy
+namespace fr34kyn01535.Uconomy
 {
     public class DatabaseManager
     {

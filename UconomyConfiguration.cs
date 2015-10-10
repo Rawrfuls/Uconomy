@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace unturned.ROCKS.Uconomy
+namespace fr34kyn01535.Uconomy
 {
     public class UconomyConfiguration : IRocketPluginConfiguration
     {
