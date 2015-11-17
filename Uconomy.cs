@@ -35,8 +35,9 @@ namespace fr34kyn01535.Uconomy
                 {"command_pay_error_cant_afford","Your balance does not allow this payment"},
                 {"command_pay_error_player_not_found","Failed to find player"},
                 {"command_pay_private","You paid {0} {1} {2}"},
+                {"command_pay_console","You received a payment of {0} {1} "},
                 {"command_pay_other_private","You received a payment of {0} {1} from {2}"},
-                };
+                }; 
             }
         }
 
