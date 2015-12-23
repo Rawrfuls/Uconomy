@@ -19,9 +19,12 @@ namespace fr34kyn01535.Uconomy
             get { return "pay"; }
         }
 
-        public bool AllowFromConsole
+        public AllowedCaller AllowedCaller
         {
-            get { return true; }
+            get
+            {
+                return AllowedCaller.Both;
+            }
         }
 
         public string Syntax

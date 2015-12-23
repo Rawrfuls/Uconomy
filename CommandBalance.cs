@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Rocket.API;
 using Rocket.Unturned.Chat;
+using Rocket.Core;
 
 namespace fr34kyn01535.Uconomy
 {
@@ -16,9 +17,13 @@ namespace fr34kyn01535.Uconomy
             get { return "Shows the current balance"; }
         }
 
-        public bool AllowFromConsole
+
+        public AllowedCaller AllowedCaller
         {
-            get { return false; }
+            get
+            {
+                return AllowedCaller.Player;
+            }
         }
 
         public string Syntax
