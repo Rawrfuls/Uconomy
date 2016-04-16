@@ -86,7 +86,7 @@ namespace fr34kyn01535.Uconomy
                 MySqlConnection connection = createConnection();
                 MySqlCommand command = connection.CreateCommand();
                 int exists = 0;
-                command.CommandText = "select count(1) from `" + Uconomy.Instance.Configuration.Instance.DatabaseTableName + "` where `steamId` = '" + id + "';";
+                command.CommandText = "SELECT EXISTS(SELECT 1 FROM `" + Uconomy.Instance.Configuration.Instance.DatabaseTableName + "` WHERE `steamId` ='" + id + "' LIMIT 1);";
                 connection.Open();
                 object result = command.ExecuteScalar();
                 if (result != null) Int32.TryParse(result.ToString(), out exists);
