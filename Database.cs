@@ -44,6 +44,7 @@ namespace fr34kyn01535.Uconomy
                 object result = command.ExecuteScalar();
                 if (result != null) Decimal.TryParse(result.ToString(), out output);
                 connection.Close();
+                Uconomy.Instance.OnBalanceChecked(id, output);
             }
             catch (Exception ex)
             {
@@ -70,6 +71,7 @@ namespace fr34kyn01535.Uconomy
                 object result = command.ExecuteScalar();
                 if (result != null) Decimal.TryParse(result.ToString(), out output);
                 connection.Close();
+                Uconomy.Instance.BalanceUpdated(id, increaseBy);
             }
             catch (Exception ex)
             {

@@ -7,6 +7,7 @@ using Rocket.Unturned.Player;
 using Rocket.Unturned.Plugins;
 using SDG;
 using Steamworks;
+using System;
 
 namespace fr34kyn01535.Uconomy
 {
@@ -22,6 +23,12 @@ namespace fr34kyn01535.Uconomy
             U.Events.OnPlayerConnected+=Events_OnPlayerConnected;
         }
 
+        public delegate void PlayerBalanceUpdate(UnturnedPlayer player, decimal amt);
+        public event PlayerBalanceUpdate OnBalanceUpdate;
+        public delegate void PlayerBalanceCheck(UnturnedPlayer player, decimal balance);
+        public event PlayerBalanceCheck OnBalanceCheck;
+        public delegate void PlayerPay(UnturnedPlayer sender, UnturnedPlayer receiver, decimal amt);
+        public event PlayerPay OnPlayerPay;
 
         public override TranslationList DefaultTranslations
         {
@@ -38,6 +45,30 @@ namespace fr34kyn01535.Uconomy
                 {"command_pay_console","You received a payment of {0} {1} "},
                 {"command_pay_other_private","You received a payment of {0} {1} from {2}"},
                 }; 
+            }
+        }
+
+        internal void HasBeenPayed(UnturnedPlayer sender, UnturnedPlayer receiver, decimal amt)
+        {
+            if (OnPlayerPay != null)
+                OnPlayerPay(sender, receiver, amt);
+        }
+
+        internal void BalanceUpdated(string SteamID, decimal amt)
+        {
+            if (OnBalanceUpdate != null)
+            {
+                UnturnedPlayer player = UnturnedPlayer.FromCSteamID(new CSteamID(Convert.ToUInt64(SteamID)));
+                OnBalanceUpdate(player, amt);
+            }
+        }
+
+        internal void OnBalanceChecked(string SteamID, decimal balance)
+        {
+            if (OnBalanceCheck != null)
+            {
+                UnturnedPlayer player = UnturnedPlayer.FromCSteamID(new CSteamID(Convert.ToUInt64(SteamID)));
+                OnBalanceCheck(player, balance);
             }
         }
 
