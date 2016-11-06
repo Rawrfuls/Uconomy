@@ -89,6 +89,7 @@ namespace fr34kyn01535.Uconomy
                         UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayer.CharacterName, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
                         Uconomy.Instance.Database.IncreaseBalance(otherPlayer.Id, amount);
                         UnturnedChat.Say(otherPlayer.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.Instance.MoneyName, caller.DisplayName));
+                        Uconomy.Instance.HasBeenPayed((UnturnedPlayer)caller, otherPlayer, amount);
                     }
                 }
 
