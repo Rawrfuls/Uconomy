@@ -34,7 +34,7 @@ namespace fr34kyn01535.Uconomy
 
         public List<string> Aliases
         {
-            get { return new List<string>(); }
+            get { return new List<string> { "pagar" }; }
         }
 
         public List<string> Permissions
