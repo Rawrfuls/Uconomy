@@ -27,7 +27,7 @@ namespace fr34kyn01535.Uconomy
         public event PlayerBalanceUpdate OnBalanceUpdate;
         public delegate void PlayerBalanceCheck(UnturnedPlayer player, decimal balance);
         public event PlayerBalanceCheck OnBalanceCheck;
-        public delegate void PlayerPay(UnturnedPlayer sender, UnturnedPlayer receiver, decimal amt);
+        public delegate void PlayerPay(UnturnedPlayer sender, string receiver, decimal amt);
         public event PlayerPay OnPlayerPay;
 
         public override TranslationList DefaultTranslations
@@ -48,7 +48,7 @@ namespace fr34kyn01535.Uconomy
             }
         }
 
-        internal void HasBeenPayed(UnturnedPlayer sender, UnturnedPlayer receiver, decimal amt)
+        internal void HasBeenPayed(UnturnedPlayer sender, string receiver, decimal amt)
         {
             if (OnPlayerPay != null)
                 OnPlayerPay(sender, receiver, amt);

@@ -2,8 +2,11 @@
 using Rocket.Core.Logging;
 using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
+using Rocket.Unturned.Commands;
+using Rocket.API.Extensions;
 using System;
 using System.Collections.Generic;
+using Steamworks;
 
 namespace fr34kyn01535.Uconomy
 {
@@ -53,10 +56,13 @@ namespace fr34kyn01535.Uconomy
                 return;
             }
 
-            UnturnedPlayer otherPlayer = UnturnedPlayer.FromName(command[0]);
+            string otherPlayer = command.GetCSteamIDParameter(0)?.ToString();
+            UnturnedPlayer otherPlayerOnline = UnturnedPlayer.FromName(command[0]);
+            if (otherPlayerOnline != null) otherPlayer = otherPlayerOnline.Id;
+
             if (otherPlayer !=null)
             {
-                if (caller == otherPlayer)
+                if (caller.Id == otherPlayer)
                 {
                     UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_pay_self"));
                     return;
@@ -71,8 +77,9 @@ namespace fr34kyn01535.Uconomy
 
                 if (caller is ConsolePlayer)
                 {
-                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer.Id, amount);
-                    UnturnedChat.Say(otherPlayer.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_console", amount, Uconomy.Instance.Configuration.Instance.MoneyName));
+                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer, amount);
+                    if(otherPlayerOnline != null)
+                        UnturnedChat.Say(otherPlayerOnline, Uconomy.Instance.Translations.Instance.Translate("command_pay_console", amount, Uconomy.Instance.Configuration.Instance.MoneyName));
                 }
                 else
                 {
@@ -86,9 +93,15 @@ namespace fr34kyn01535.Uconomy
                     else
                     {
                         Uconomy.Instance.Database.IncreaseBalance(caller.Id, -amount);
-                        UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayer.CharacterName, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
-                        Uconomy.Instance.Database.IncreaseBalance(otherPlayer.Id, amount);
-                        UnturnedChat.Say(otherPlayer.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.Instance.MoneyName, caller.DisplayName));
+                        if(otherPlayerOnline != null)
+                            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayerOnline.CharacterName, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
+                        else
+                            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayer, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
+
+                        Uconomy.Instance.Database.IncreaseBalance(otherPlayer, amount);
+                        if (otherPlayerOnline != null)
+                            UnturnedChat.Say(otherPlayerOnline.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.Instance.MoneyName, caller.DisplayName));
+
                         Uconomy.Instance.HasBeenPayed((UnturnedPlayer)caller, otherPlayer, amount);
                     }
                 }
