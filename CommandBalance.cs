@@ -1,53 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rocket.API;
-using Rocket.Unturned.Chat;
-using Rocket.Core;
+using Rocket.API.Commands;
+using Rocket.API.Plugins;
+using Rocket.Core.I18N;
 
 namespace fr34kyn01535.Uconomy
 {
-    public class CommandBalance : IRocketCommand
+    public class CommandBalance : ICommand
     {
-        public string Name
+        private readonly Uconomy _uconomy;
+
+        public CommandBalance(IPlugin plugin)
         {
-            get { return "balance"; }
-        }
-        public string Help
-        {
-            get { return "Shows the current balance"; }
+            _uconomy = (Uconomy) plugin;
         }
 
+        public string Name => "balance";
+        public string[] Aliases => null;
+        public string Summary => "Shows the current balance";
+        public string Description => null;
+        public string Permission => null;
+        public string Syntax => "";
+        public IChildCommand[] ChildCommands => null;
 
-        public AllowedCaller AllowedCaller
+        public bool SupportsUser(Type user)
         {
-            get
-            {
-                return AllowedCaller.Player;
-            }
+            return !typeof(IConsole).IsAssignableFrom(user);
         }
 
-        public string Syntax
+        public void Execute(ICommandContext context)
         {
-            get { return ""; }
-        }
-
-        public List<string> Aliases
-        {
-            get { return new List<string>(); }
-        }
-
-        public List<string> Permissions
-        {
-            get
-            {
-                return new List<string>() { "uconomy.balance" };
-            }
-        }
-
-        public void Execute(IRocketPlayer caller,params string[] command)
-        {
-            decimal balance = Uconomy.Instance.Database.GetBalance(caller.Id);
-            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_balance_show", balance, Uconomy.Instance.Configuration.Instance.MoneyName));
+            decimal balance = _uconomy.Database.GetBalance(context.User);
+            context.User.SendLocalizedMessage(_uconomy.Translations, "command_balance_show", balance, _uconomy.ConfigurationInstance.MoneyName);
         }
     }
 }

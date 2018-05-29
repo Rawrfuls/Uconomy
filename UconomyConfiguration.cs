@@ -1,33 +1,14 @@
-﻿using Rocket.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace fr34kyn01535.Uconomy
+﻿namespace fr34kyn01535.Uconomy
 {
-    public class UconomyConfiguration : IRocketPluginConfiguration
+    public class UconomyConfiguration
     {
-        public string DatabaseAddress;
-        public string DatabaseUsername;
-        public string DatabasePassword;
-        public string DatabaseName;
-        public string DatabaseTableName;
-        public int DatabasePort;
-
-        public decimal InitialBalance;
-        public string MoneyName;
-
-        public void LoadDefaults()
-        {
-            DatabaseAddress = "localhost";
-            DatabaseUsername = "unturned";
-            DatabasePassword = "password";
-            DatabaseName = "unturned";
-            DatabaseTableName = "uconomy";
-            DatabasePort = 3306;
-            InitialBalance = 30;
-            MoneyName = "Credits";
-        }
+        public string DatabaseAddress { get; set; } = "localhost";
+        public string DatabaseUsername { get; set; } = "unturned";
+        public string DatabasePassword { get; set; } = "password";
+        public string DatabaseName { get; set; } = "unturned";
+        public string DatabaseTableName { get; set; } = "uconomy";
+        public int DatabasePort { get; set; } = 3306;
+        public decimal InitialBalance { get; set; } = 30;
+        public string MoneyName { get; set; } = "Credits";
     }
 }

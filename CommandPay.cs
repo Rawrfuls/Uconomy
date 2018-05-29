@@ -1,116 +1,78 @@
-﻿using Rocket.API;
-using Rocket.Core.Logging;
-using Rocket.Unturned.Chat;
-using Rocket.Unturned.Player;
-using Rocket.Unturned.Commands;
-using Rocket.API.Extensions;
-using System;
-using System.Collections.Generic;
-using Steamworks;
+﻿using System;
+using Rocket.API.Commands;
+using Rocket.API.Plugins;
+using Rocket.API.User;
+using Rocket.Core.Commands;
+using Rocket.Core.I18N;
 
 namespace fr34kyn01535.Uconomy
 {
-    public class CommandPay : IRocketCommand
+    public class CommandPay : ICommand
     {
-        public string Help
+        private readonly Uconomy _uconomy;
+
+        public CommandPay(IPlugin plugin)
         {
-            get { return "Pays a specific player money from your account"; }
+            _uconomy = (Uconomy)plugin;
         }
 
-        public string Name
+        public string Name => "pay";
+        public string[] Aliases => null;
+        public string Summary => "Pays a specific player money from your account";
+        public string Description => null;
+        public string Permission => null;
+        public string Syntax => "<player> <amount>";
+        public IChildCommand[] ChildCommands => null;
+
+        public bool SupportsUser(Type user)
         {
-            get { return "pay"; }
+            return true;
         }
 
-        public AllowedCaller AllowedCaller
+        public void Execute(ICommandContext context)
         {
-            get
+            if (context.Parameters.Length != 2)
             {
-                return AllowedCaller.Both;
+                throw new CommandWrongUsageException();
             }
-        }
 
-        public string Syntax
-        {
-            get { return "<player> <amount>"; }
-        }
+            IUser otherUser = context.Parameters.Get<IUser>(0);
+            var caller = context.User;
 
-        public List<string> Aliases
-        {
-            get { return new List<string>(); }
-        }
-
-        public List<string> Permissions
-        {
-            get
+            if (caller == otherUser)
             {
-                return new List<string>() { "uconomy.pay" };
-            }
-        }
-
-        public void Execute(IRocketPlayer caller, params string[] command)
-        {
-            if (command.Length != 2)
-            {
-                UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_invalid"));
+                caller.SendLocalizedMessage(_uconomy.Translations, "command_pay_error_pay_self");
                 return;
             }
 
-            string otherPlayer = command.GetCSteamIDParameter(0)?.ToString();
-            UnturnedPlayer otherPlayerOnline = UnturnedPlayer.FromName(command[0]);
-            if (otherPlayerOnline != null) otherPlayer = otherPlayerOnline.Id;
+            decimal amount = context.Parameters.Get<decimal>(1);
 
-            if (otherPlayer !=null)
+            if (caller is IConsole)
             {
-                if (caller.Id == otherPlayer)
-                {
-                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_pay_self"));
-                    return;
-                }
-
-                decimal amount = 0;
-                if (!Decimal.TryParse(command[1], out amount) || amount <= 0)
-                {
-                    UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_invalid_amount"));
-                    return;
-                }
-
-                if (caller is ConsolePlayer)
-                {
-                    Uconomy.Instance.Database.IncreaseBalance(otherPlayer, amount);
-                    if(otherPlayerOnline != null)
-                        UnturnedChat.Say(otherPlayerOnline, Uconomy.Instance.Translations.Instance.Translate("command_pay_console", amount, Uconomy.Instance.Configuration.Instance.MoneyName));
-                }
-                else
-                {
-
-                    decimal myBalance = Uconomy.Instance.Database.GetBalance(caller.Id);
-                    if ((myBalance - amount) <= 0)
-                    {
-                        UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_cant_afford"));
-                        return;
-                    }
-                    else
-                    {
-                        Uconomy.Instance.Database.IncreaseBalance(caller.Id, -amount);
-                        if(otherPlayerOnline != null)
-                            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayerOnline.CharacterName, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
-                        else
-                            UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_private", otherPlayer, amount, Uconomy.Instance.Configuration.Instance.MoneyName));
-
-                        Uconomy.Instance.Database.IncreaseBalance(otherPlayer, amount);
-                        if (otherPlayerOnline != null)
-                            UnturnedChat.Say(otherPlayerOnline.CSteamID, Uconomy.Instance.Translations.Instance.Translate("command_pay_other_private", amount, Uconomy.Instance.Configuration.Instance.MoneyName, caller.DisplayName));
-
-                        Uconomy.Instance.HasBeenPayed((UnturnedPlayer)caller, otherPlayer, amount);
-                    }
-                }
-
+                _uconomy.Database.IncreaseBalance(otherUser, amount);
+                otherUser?.SendLocalizedMessage(_uconomy.Translations, "command_pay_console", amount,
+                    _uconomy.ConfigurationInstance.MoneyName);
+                return;
             }
-            else
+
+            decimal myBalance = _uconomy.Database.GetBalance(caller);
+            if ((myBalance - amount) <= 0)
             {
-                UnturnedChat.Say(caller, Uconomy.Instance.Translations.Instance.Translate("command_pay_error_player_not_found"));
+                caller.SendLocalizedMessage(_uconomy.Translations,
+                    "command_pay_error_cant_afford");
+                return;
             }
+
+            _uconomy.Database.IncreaseBalance(caller, -amount);
+            caller.SendLocalizedMessage(_uconomy.Translations,
+                "command_pay_private",
+                    otherUser.Name, amount,
+                    _uconomy.ConfigurationInstance.MoneyName);
+
+            _uconomy.Database.IncreaseBalance(otherUser, amount);
+            otherUser.SendLocalizedMessage(_uconomy.Translations,
+                "command_pay_other_private", amount,
+                _uconomy.ConfigurationInstance.MoneyName, caller.Name);
         }
     }
 }
