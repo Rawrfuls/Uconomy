@@ -15,7 +15,9 @@ namespace fr34kyn01535.Uconomy
         {
             _logger = logger;
             _uconomy = uconomy;
+#if NET35
             new I18N.West.CP1250(); //Workaround for database encoding issues with mono
+#endif
             CheckSchema();
         }
 
@@ -85,7 +87,7 @@ namespace fr34kyn01535.Uconomy
             return output;
         }
 
-        
+
         public void CheckSetupAccount(IIdentity identity)
         {
             var id = identity.IdentityType + ":" + identity.Id;
