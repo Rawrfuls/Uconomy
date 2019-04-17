@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using fr34kyn01535.Uconomy.Models;
+using Microsoft.EntityFrameworkCore;
+using Rocket.API.Commands;
 using Rocket.API.DependencyInjection;
 using Rocket.API.Economy;
 using Rocket.API.Plugins;
@@ -10,102 +15,120 @@ namespace fr34kyn01535.Uconomy
     public class UconomyEconomyProvider : IEconomyProvider
     {
         private readonly IDependencyContainer _container;
-        private Uconomy Uconomy => (Uconomy)_container.Resolve<IPluginManager>().GetPlugin("uconomy");
+        private UconomyPlugin Plugin => (UconomyPlugin) _container.Resolve<IPluginLoader>().Plugins.FirstOrDefault(p => p.Name == "Uconomy");
 
         public UconomyEconomyProvider(IDependencyContainer container)
         {
             _container = container;
         }
 
-        public void AddBalance(IIdentity owner, decimal amount, string reason = null)
+        public async Task AddBalanceAsync(IUser owner, decimal amount, string reason = null)
         {
-            Uconomy.Database.IncreaseBalance(owner, amount);
+            using (var db = new UconomyDbContext(Plugin))
+            {
+                var account = await db.Accounts.FirstOrDefaultAsync(a => a.Id == owner.Id);
+                account.Balance += amount;
+                account.LastUpdated = DateTime.Now;
+                await db.SaveChangesAsync();
+            }
         }
 
-        public bool Transfer(IEconomyAccount source, IEconomyAccount target, decimal amount, string reason = null)
+        public Task<bool> TransferAsync(IEconomyAccount source, IEconomyAccount target, decimal amount, string reason = null)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public void AddBalance(IEconomyAccount account, decimal amount, string reason = null)
+        public Task<bool> AddBalanceAsync(IEconomyAccount account, decimal amount, string reason = null)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public bool RemoveBalance(IIdentity owner, decimal amount, string reason = null)
+        public async Task<bool> RemoveBalanceAsync(IUser owner, decimal amount, string reason = null)
         {
-            Uconomy.Database.IncreaseBalance(owner, -amount);
+            await AddBalanceAsync(owner, -amount);
             return true;
         }
 
-        public bool RemoveBalance(IEconomyAccount account, decimal amount, string reason = null)
+        public Task<bool> RemoveBalanceAsync(IEconomyAccount account, decimal amount, string reason = null)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public void SetBalance(IIdentity owner, decimal amount)
+        public async Task SetBalanceAsync(IUser owner, decimal amount)
         {
-            var currentBalance = GetBalance(owner);
-            var toAdd = amount - currentBalance;
-            AddBalance(owner, toAdd);
+            using (var db = new UconomyDbContext(Plugin))
+            {
+                var account = await db.Accounts.FirstOrDefaultAsync(a => a.Id == owner.Id);
+                account.Balance = amount;
+                account.LastUpdated = DateTime.Now;
+                await db.SaveChangesAsync();
+            }
         }
 
-        public void SetBalance(IEconomyAccount account, decimal amount)
+        public Task SetBalanceAsync(IEconomyAccount account, decimal amount)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public bool SupportsNegativeBalance(IIdentity owner)
+        public Task<bool> SupportsNegativeBalanceAsync(IEconomyAccount account)
         {
-            return false;
+            throw new NotImplementedException();
         }
 
-        public bool SupportsNegativeBalance(IEconomyAccount account)
+        public Task<bool> CreateAccountAsync(IUser owner, string name, out IEconomyAccount account)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public bool CreateAccount(IIdentity owner, string name, out IEconomyAccount account)
+        public Task<bool> CreateAccountAsync(IUser owner, string name, IEconomyCurrency currency, out IEconomyAccount account)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public bool CreateAccount(IIdentity owner, string name, IEconomyCurrency currency, out IEconomyAccount account)
+        public Task<bool> DeleteAccountAsync(IEconomyAccount account)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public bool DeleteAccount(IEconomyAccount account)
+        public Task<IEconomyAccount> GetAccountAsync(IUser owner, string accountName = null)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public IEconomyAccount GetAccount(IIdentity owner, string accountName = null)
+        public Task<IEnumerable<IEconomyAccount>> GetAccountsAsync(IUser owner)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<IEconomyAccount> GetAccounts(IIdentity owner)
+        public bool SupportsUser(IUser user)
         {
-            throw new NotSupportedException();
+            return !(user is IConsole);
         }
 
-        public bool SupportsIdentity(IIdentity identity)
+        public async Task<decimal> GetBalanceAsync(IUser user)
         {
-            return true;
+            using (var db = new UconomyDbContext(Plugin))
+            {
+                var account = await db.Accounts.FirstOrDefaultAsync(a => a.Id == user.Id);
+                return account.Balance;
+            }
         }
 
-        public decimal GetBalance(IIdentity identity)
-        {
-            return Uconomy.Database.GetBalance(identity);
-        }
-
-        public IEnumerable<IEconomyCurrency> Currencies => new[]
-        {
-            DefaultCurrency
-        };
-
-        public IEconomyCurrency DefaultCurrency => new UconomyCurrency(Uconomy.ConfigurationInstance.MoneyName);
+        public IEnumerable<IEconomyCurrency> Currencies => throw new NotSupportedException();
+        public IEconomyCurrency DefaultCurrency => new UconomyCurrency(Plugin.ConfigurationInstance.MoneyName);
         public bool SupportsMultipleAccounts => false;
+
+        public async Task CreateAccountAsync(IUser user)
+        {
+            using (var db = new UconomyDbContext(Plugin))
+            {
+                if (!await db.Accounts.AnyAsync(a => a.Id == user.Id))
+                {
+                    var account = new Account(user.Id, Plugin.ConfigurationInstance.InitialBalance);
+                    await db.Accounts.AddAsync(account);
+                    await db.SaveChangesAsync();
+                }
+            }
+        }
     }
 }
