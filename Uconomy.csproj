@@ -9,7 +9,7 @@
   
   <PropertyGroup>
     <PackageId>Uconomy</PackageId>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageTags>RocketMod Universal</PackageTags>
     <PackageLicenseUrl>https://github.com/RocketModPlugins/Uconomy/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://rocketmod.net/</PackageProjectUrl>
