@@ -9,6 +9,7 @@ namespace fr34kyn01535.Uconomy
         {
             Name = name;
         }
+
         public decimal ExchangeTo(decimal amount, IEconomyCurrency targetCurrency)
         {
             throw new NotSupportedException();
