@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace fr34kyn01535.Uconomy.Migrations
 {
-    public partial class Economy : Migration
+    public partial class Economy1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

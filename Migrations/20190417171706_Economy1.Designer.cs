@@ -9,14 +9,14 @@ using fr34kyn01535.Uconomy;
 namespace fr34kyn01535.Uconomy.Migrations
 {
     [DbContext(typeof(UconomyDbContext))]
-    [Migration("20190417122555_Economy")]
-    partial class Economy
+    [Migration("20190417171706_Economy1")]
+    partial class Economy1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("fr34kyn01535.Uconomy.Models.Account", b =>

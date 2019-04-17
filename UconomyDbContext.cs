@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using fr34kyn01535.Uconomy.Models;
+﻿using fr34kyn01535.Uconomy.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace fr34kyn01535.Uconomy

@@ -7,10 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Rocket.API.Commands;
 using Rocket.API.DependencyInjection;
 using Rocket.API.Economy;
-using Rocket.API.Logging;
 using Rocket.API.Plugins;
 using Rocket.API.User;
-using Rocket.Core.Logging;
 
 namespace fr34kyn01535.Uconomy
 {

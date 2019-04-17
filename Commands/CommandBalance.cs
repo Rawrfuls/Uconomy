@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Rocket.API.Commands;
 using Rocket.API.Economy;
 using Rocket.API.Plugins;
