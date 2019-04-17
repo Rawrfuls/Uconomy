@@ -124,11 +124,12 @@ namespace fr34kyn01535.Uconomy
         {
             using (var db = new UconomyDbContext(Plugin))
             {
-                if(await db.Accounts.AnyAsync(a => a.Id == user.Id)) return;
-
-                var account = new Account(user.Id, Plugin.ConfigurationInstance.InitialBalance);
-                await db.Accounts.AddAsync(account);
-                await db.SaveChangesAsync();
+                if (!await db.Accounts.AnyAsync(a => a.Id == user.Id))
+                {
+                    var account = new Account(user.Id, Plugin.ConfigurationInstance.InitialBalance);
+                    await db.Accounts.AddAsync(account);
+                    await db.SaveChangesAsync();
+                }
             }
         }
     }
